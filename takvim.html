@@ -17,6 +17,15 @@
     <div class="container">
         <header>
             <h1><i class="fas fa-calendar-alt"></i> Tarih Takip</h1>
+            <div class="import-export-buttons">
+                <button onclick="exportEvents()" class="action-btn">
+                    <i class="fas fa-download"></i> Dışa Aktar
+                </button>
+                <label class="action-btn">
+                    <i class="fas fa-upload"></i> İçe Aktar
+                    <input type="file" accept=".json" onchange="importEvents(this.files[0])" style="display: none;">
+                </label>
+            </div>
         </header>
         <div class="events-container">
             <h2><i class="fas fa-list"></i> Yaklaşan Etkinlikler</h2>
@@ -28,13 +37,12 @@
             <div class="input-group">
                 <input type="text" id="eventName" placeholder="Etkinlik Adı" required>
                 <input type="date" id="eventDate" required>
+                <textarea id="eventNote" placeholder="Not ekle..." rows="2"></textarea>
                 <button onclick="addEvent()" class="add-btn">
                     <i class="fas fa-plus"></i> Ekle
                 </button>
             </div>
         </div>
-
-
     </div>
 
     <div class="theme-toggle">
