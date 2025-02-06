@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deadline Counter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: white;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            color: #333;
+        }
+        h1 {
+            color: #007bff;
+            font-size: 24px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: white;
+            color: #333;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .progress {
+            width: 100px;
+            height: 10px;
+            background: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-left: 10px;
+        }
+        .progress-bar {
+            height: 100%;
+            background: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Deadline Countdown</h1>
+        <ul id="deadlineList"></ul>
+    </div>
+
+    <script>
+        const deadlines = [
+            { name: "Project Submission", date: "2025-03-01" },
+            { name: "Exam Day", date: "2025-04-15" },
+            { name: "Vacation Start", date: "2025-06-10" }
+        ];
+
+        function calculateDays(date) {
+            const deadline = new Date(date);
+            const today = new Date();
+            const timeDiff = deadline - today;
+            return Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+        }
+
+        function calculateProgress(startDate, endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            const today = new Date();
+            const totalDuration = end - start;
+            const elapsedTime = today - start;
+            return Math.min(100, Math.max(0, (elapsedTime / totalDuration) * 100));
+        }
+
+        function displayDeadlines() {
+            const list = document.getElementById('deadlineList');
+            list.innerHTML = '';
+            deadlines.forEach(item => {
+                const daysLeft = calculateDays(item.date);
+                const progress = calculateProgress("2024-01-01", item.date);
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<span>${item.name}: ${daysLeft} days left</span>
+                    <div class='progress'><div class='progress-bar' style='width: ${progress}%;'></div></div>`;
+                list.appendChild(listItem);
+            });
+        }
+
+        displayDeadlines();
+    </script>
+</body>
+</html>
